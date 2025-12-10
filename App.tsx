@@ -4,7 +4,7 @@ import {
   Menu, X, Clock, Users, Brain, Activity, 
   MapPin, Phone, Mail, Instagram, Facebook, Linkedin, 
   ChevronRight, ChevronDown, Star, LogIn, FileText, BookOpen,
-  ShieldCheck, FileCheck, DollarSign
+  ShieldCheck, FileCheck, DollarSign, ScrollText, Printer, Share2, Feather, FileCheck2
 } from 'lucide-react';
 import Button from './src/client/components/ui/Button';
 import WhatsAppBtn from './src/client/components/ui/WhatsAppBtn';
@@ -92,15 +92,16 @@ const App: React.FC = () => {
   const handleFormSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
+    const form = e.currentTarget; // Capture form reference
 
-    const formData = new FormData(e.currentTarget);
+    const formData = new FormData(form);
     const data = Object.fromEntries(formData.entries());
 
     try {
       // Mock de envio sem erro para demonstração
       setTimeout(() => {
           setShowPaymentModal(true);
-          (e.target as HTMLFormElement).reset();
+          form.reset();
           setIsSubmitting(false);
       }, 1000);
       
@@ -279,7 +280,10 @@ const App: React.FC = () => {
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 pt-4 animate-[fadeInUp_1s_ease-out]">
-                <Button onClick={() => handleScrollTo('contato')} className="shadow-xl shadow-[#70C528]/20">
+                <Button 
+                  onClick={() => handleScrollTo('contato')} 
+                  className="shadow-xl shadow-[#70C528]/20 hover:scale-105 active:scale-95 transition-transform duration-300"
+                >
                   Agendar Consulta Online
                 </Button>
                 <Button variant="outline" onClick={() => handleScrollTo('sobre')}>Saiba Mais</Button>
@@ -300,17 +304,31 @@ const App: React.FC = () => {
               </div>
             </div>
             
-            <div className="lg:w-1/2 relative animate-[fadeIn_1.2s_ease-out]">
-              <div className="relative z-10 rounded-[2.5rem] overflow-hidden shadow-2xl border-8 border-white transform rotate-2 hover:rotate-0 transition-transform duration-500">
+            <div className="lg:w-1/2 relative animate-[fadeIn_1.2s_ease-out] mt-12 lg:mt-0">
+              <div className="relative z-10 rounded-[2rem] md:rounded-[2.5rem] overflow-hidden shadow-2xl border-4 md:border-8 border-white transform md:rotate-2 hover:rotate-0 transition-transform duration-500 group">
                 <img 
                   src="https://images.unsplash.com/photo-1527613426441-4da17471b66d?q=80&w=800&auto=format&fit=crop" 
-                  alt="Sessão de terapia acolhedora" 
-                  className="w-full h-auto object-cover"
+                  alt="Dra. Regiane O. C. Faria" 
+                  className="w-full h-[450px] sm:h-[600px] lg:h-auto object-cover object-top transform scale-100 group-hover:scale-105 transition-transform duration-700"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#1B2A4E]/60 to-transparent"></div>
-                <div className="absolute bottom-8 left-8 text-white">
-                  <p className="font-bold text-xl">Dr. Miguel Silva</p>
-                  <p className="text-sm opacity-90">Psicólogo Chefe - CRP 06/12345</p>
+                <div className="absolute inset-0 bg-gradient-to-t from-[#1B2A4E]/90 via-transparent to-[#1B2A4E]/10"></div>
+                
+                {/* Top Badge */}
+                <div className="absolute top-6 md:top-8 left-1/2 -translate-x-1/2 bg-[#3A4D39]/95 backdrop-blur-sm text-white px-4 md:px-6 py-2 md:py-3 rounded-2xl border border-[#D4C4A8]/30 shadow-lg text-center w-[90%] md:w-auto min-w-[280px]">
+                   <p className="font-serif text-xl md:text-3xl leading-tight text-[#E8E0D1]">Dra. Regiane O. C. Faria</p>
+                   <p className="text-xs md:text-sm font-light uppercase tracking-widest mt-1 text-white/80">Psicologia Clínica</p>
+                </div>
+
+                {/* Bottom Content */}
+                <div className="absolute bottom-6 md:bottom-8 left-0 right-0 text-center px-4 md:px-6">
+                  <p className="text-white text-base md:text-lg font-medium mb-1 drop-shadow-md">Acolhimento, Escuta e Transformação.</p>
+                  <p className="text-gray-200 text-xs md:text-sm mb-4 md:mb-6 drop-shadow-md">Agende sua consulta hoje.</p>
+                  <button 
+                    onClick={() => handleScrollTo('contato')}
+                    className="bg-[#D4B996] text-[#1B2A4E] font-bold py-3 px-8 md:px-10 rounded-full shadow-xl hover:bg-[#C3A682] transition-colors transform hover:-translate-y-1 w-full md:w-auto text-sm md:text-base"
+                  >
+                    Agendar Consulta
+                  </button>
                 </div>
               </div>
             </div>
@@ -352,14 +370,19 @@ const App: React.FC = () => {
           </div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {[1, 2, 3, 4].map((id) => (
-               <div key={id} className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 group">
+            {[
+              { name: "Dra. Regiane O. C. Faria", role: "Psicóloga Clínica", img: "https://images.unsplash.com/photo-1527613426441-4da17471b66d?q=80&w=400&auto=format&fit=crop" },
+              { name: "Dra. Ana Costa", role: "Neuropsicologia", img: "https://images.unsplash.com/photo-1594824476967-48c8b964273f?q=80&w=400&auto=format&fit=crop" },
+              { name: "Dr. Roberto Dias", role: "Terapia Familiar", img: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?q=80&w=400&auto=format&fit=crop" },
+              { name: "Dr. Marcos Silva", role: "Terapia Cognitiva", img: "https://images.unsplash.com/photo-1537368910025-700350fe46c7?q=80&w=400&auto=format&fit=crop" },
+            ].map((doc, idx) => (
+               <div key={idx} className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 group">
                  <div className="h-64 overflow-hidden relative">
-                   <img src={`https://i.pravatar.cc/300?img=${id + 20}`} alt="Doctor" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                   <img src={doc.img} alt={doc.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                  </div>
                  <div className="p-6 text-center">
-                    <h3 className="text-lg font-bold text-[#1B2A4E]">Dr. Especialista {id}</h3>
-                    <p className="text-[#70C528] font-medium text-sm mt-1 mb-3">Psicologia Clínica</p>
+                    <h3 className="text-lg font-bold text-[#1B2A4E]">{doc.name}</h3>
+                    <p className="text-[#70C528] font-medium text-sm mt-1 mb-3">{doc.role}</p>
                     <Button variant="outline" className="text-xs px-4 py-1 w-full border-gray-200 hover:border-[#70C528]">Ver Perfil</Button>
                  </div>
                </div>
@@ -517,8 +540,69 @@ const App: React.FC = () => {
         </div>
       </section>
 
+      {/* --- DOCUMENTS SECTION (NEW) --- */}
+      <section className="py-24 bg-[#F8F9FA] overflow-hidden">
+        <div className="container mx-auto px-6">
+          <div className="flex flex-col lg:flex-row items-center gap-16">
+            <div className="lg:w-1/2 order-2 lg:order-1">
+               <div className="inline-flex items-center gap-2 bg-white border border-gray-100 shadow-sm text-[#1B2A4E] font-bold px-4 py-1.5 rounded-full text-sm mb-6">
+                 <FileCheck2 size={16} className="text-[#70C528]" />
+                 <span>Praticidade no dia a dia</span>
+               </div>
+               <h2 className="text-3xl md:text-4xl font-bold text-[#1B2A4E] mb-6 leading-tight">
+                  Geração de Documentos Personalizados em 1 Clique
+               </h2>
+               <p className="text-gray-600 text-lg mb-8 leading-relaxed">
+                 Gere recibos, laudos, atestados e contratos com modelos validados pela Resolução CFP 06/2019. Tudo com sua marca e assinatura digital.
+               </p>
+
+               <div className="grid sm:grid-cols-2 gap-6">
+                 {[
+                   { icon: <Feather size={20} />, title: 'Personalização', desc: 'Edite documentos com papel timbrado e sua logo.' },
+                   { icon: <Printer size={20} />, title: 'Modelos Prontos', desc: 'Recibos, Atestados e Laudos pré-formatados.' },
+                   { icon: <ScrollText size={20} />, title: 'Armazenamento', desc: 'Histórico ilimitado e seguro na nuvem.' },
+                   { icon: <Share2 size={20} />, title: 'Envio Fácil', desc: 'Envie por E-mail ou WhatsApp direto ao paciente.' },
+                 ].map((item, idx) => (
+                   <div key={idx} className="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex gap-4">
+                     <div className="bg-[#70C528]/10 text-[#70C528] w-10 h-10 rounded-lg flex items-center justify-center shrink-0">
+                       {item.icon}
+                     </div>
+                     <div>
+                       <h4 className="font-bold text-[#1B2A4E] text-sm">{item.title}</h4>
+                       <p className="text-xs text-gray-500 mt-1 leading-relaxed">{item.desc}</p>
+                     </div>
+                   </div>
+                 ))}
+               </div>
+
+               <div className="mt-8">
+                  <Button onClick={() => { setDashboardInitialTab('docs'); setShowLoginModal(true); }} variant="outline" className="border-[#70C528] text-[#70C528] hover:bg-[#70C528] hover:text-white">
+                    Ver Modelos de Documentos
+                  </Button>
+               </div>
+            </div>
+
+            <div className="lg:w-1/2 order-1 lg:order-2 grid grid-cols-2 gap-4">
+               {[
+                 { title: 'Recibo', icon: <DollarSign size={24} />, color: 'bg-green-100 text-green-600' },
+                 { title: 'Atestado', icon: <Activity size={24} />, color: 'bg-blue-100 text-blue-600' },
+                 { title: 'Laudo', icon: <FileText size={24} />, color: 'bg-purple-100 text-purple-600' },
+                 { title: 'Contrato', icon: <ScrollText size={24} />, color: 'bg-orange-100 text-orange-600' },
+               ].map((doc, idx) => (
+                 <div key={idx} className={`bg-white p-6 rounded-2xl shadow-md border border-gray-100 flex flex-col items-center justify-center text-center gap-3 aspect-square hover:-translate-y-1 transition-transform cursor-default ${idx % 2 === 1 ? 'mt-8' : ''}`}>
+                    <div className={`w-14 h-14 rounded-full flex items-center justify-center ${doc.color}`}>
+                      {doc.icon}
+                    </div>
+                    <span className="font-bold text-[#1B2A4E]">{doc.title}</span>
+                 </div>
+               ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* --- FAQ SECTION --- */}
-      <section className="py-24 bg-[#F8F9FA]">
+      <section className="py-24 bg-white">
         <div className="container mx-auto px-6 max-w-4xl">
            <div className="text-center mb-12">
              <h2 className="text-3xl font-bold text-[#1B2A4E]">Dúvidas Frequentes</h2>
@@ -528,7 +612,7 @@ const App: React.FC = () => {
                 {q: "Aceitam convênios médicos?", a: "Sim, trabalhamos com os principais convênios e também oferecemos sistema de reembolso."},
                 {q: "Como funciona a terapia online?", a: "As sessões são realizadas por videochamada em nossa plataforma segura, garantindo o mesmo acolhimento do presencial."},
               ].map((faq, i) => (
-                <details key={i} className="bg-white rounded-xl p-6 shadow-sm cursor-pointer group">
+                <details key={i} className="bg-gray-50 rounded-xl p-6 shadow-sm cursor-pointer group">
                   <summary className="font-bold text-[#1B2A4E] list-none flex justify-between items-center">
                     {faq.q}
                     <span className="text-[#70C528] transform group-open:rotate-45 transition-transform">+</span>
@@ -541,11 +625,11 @@ const App: React.FC = () => {
       </section>
 
       {/* --- CONTACT --- */}
-      <section id="contato" className="py-24 bg-white relative">
+      <section id="contato" className="py-24 bg-[#F8F9FA] relative">
         <div className="container mx-auto px-6">
           <div 
             ref={contactCardRef}
-            className={`bg-[#F8F9FA] rounded-3xl overflow-hidden shadow-2xl flex flex-col lg:flex-row transform transition-all duration-1000 ease-out ${
+            className={`bg-white rounded-3xl overflow-hidden shadow-2xl flex flex-col lg:flex-row transform transition-all duration-1000 ease-out ${
               isContactVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
             }`}
           >
@@ -590,7 +674,7 @@ const App: React.FC = () => {
       <Modal 
         isOpen={showModal} 
         onClose={() => setShowModal(false)} 
-        title="Agendamento Confirmado!" 
+        title="Agendamento Recebido!" 
         message="Seu pagamento foi processado com sucesso."
         calendarData={calendarData}
       />

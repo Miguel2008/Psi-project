@@ -1,6 +1,7 @@
+
 import React, { useState } from 'react';
 import { X, CreditCard, QrCode, Check, Loader2, Copy, ShieldCheck } from 'lucide-react';
-import Button from './Button';
+import Button from '../src/client/components/ui/Button';
 
 interface PaymentModalProps {
   isOpen: boolean;

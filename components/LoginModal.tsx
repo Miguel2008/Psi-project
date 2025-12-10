@@ -1,6 +1,7 @@
+
 import React, { useState } from 'react';
 import { X, Eye, EyeOff, Loader2 } from 'lucide-react';
-import Button from './Button';
+import Button from '../src/client/components/ui/Button';
 
 interface LoginModalProps {
   isOpen: boolean;

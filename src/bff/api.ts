@@ -1,6 +1,6 @@
 
 import { mockDb } from './data/mock-db';
-import { Doctor, Patient, StatItem, Session, FinancialSummary, Transaction } from '../shared/types';
+import { Doctor, Patient, StatItem, Session, FinancialSummary, Transaction, AppointmentRequest, DocumentTemplate, PatientDocument, DashboardOverview } from '../shared/types';
 
 // Simulando delay de rede para parecer uma aplicação real
 const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
@@ -51,5 +51,40 @@ export const clinicApi = {
   deleteTransaction: async (id: number): Promise<boolean> => {
     await delay(400);
     return mockDb.deleteTransaction(id);
+  },
+
+  // --- AGENDA ---
+
+  getAppointmentRequests: async (): Promise<AppointmentRequest[]> => {
+    await delay(300);
+    return mockDb.getAppointmentRequests();
+  },
+
+  updateAppointmentRequestStatus: async (id: number, status: 'Aprovada' | 'Recusada'): Promise<AppointmentRequest | undefined> => {
+    await delay(300);
+    return mockDb.updateAppointmentRequestStatus(id, status);
+  },
+
+  getDailySchedule: async (): Promise<Session[]> => {
+    await delay(300);
+    return mockDb.getDailySchedule();
+  },
+
+  // --- DOCUMENTOS ---
+
+  getDocumentTemplates: async (): Promise<DocumentTemplate[]> => {
+    await delay(200);
+    return mockDb.getDocumentTemplates();
+  },
+
+  getGeneratedDocuments: async (): Promise<PatientDocument[]> => {
+    await delay(300);
+    return mockDb.getGeneratedDocuments();
+  },
+
+  // --- DASHBOARD OVERVIEW ---
+  getDashboardOverview: async (): Promise<DashboardOverview> => {
+    await delay(300);
+    return mockDb.getDashboardOverview();
   }
 };
